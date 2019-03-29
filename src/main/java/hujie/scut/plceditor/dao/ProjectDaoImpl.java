@@ -31,7 +31,7 @@ public class ProjectDaoImpl implements ProjectDao{
 
     @Override
     public List<Project> findProsByUserIdAndProName(String userid, String projectName) {
-        Query query = new Query(Criteria.where("username").is(userid).and("name").is(projectName));
+        Query query = new Query(Criteria.where("userid").is(userid).and("name").is(projectName));
         return mongoTemplate.find(query, Project.class);
     }
 

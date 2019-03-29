@@ -38,7 +38,8 @@ public class UserController {
             File file = new File(ConstantUtils.PROPATH + username);
             file.mkdir();
             System.out.println(ConstantUtils.PROPATH + username + "创建成功!");
-            return "successful";
+            String returnInfo = "username: " + username;
+            return "login successful! " + returnInfo;
         }
     }
 }

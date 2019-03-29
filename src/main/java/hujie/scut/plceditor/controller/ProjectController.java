@@ -161,9 +161,10 @@ public class ProjectController {
 
         if(result.size() > 0){
             Project loadProject = result.get(0);
-            JSONObject returnInfo = new JSONObject();
-            returnInfo.put("Data", loadProject);
-            return returnInfo.toJSONString();
+            return JSONObject.toJSONString(loadProject);
+//            JSONObject returnInfo = new JSONObject();
+//            returnInfo.put("Data", loadProject);
+//            return returnInfo.toJSONString();
         }else{
             JSONObject returnInfo = new JSONObject();
             returnInfo.put("message", "load project '" + projectName + "' fail ! ");
@@ -194,10 +195,11 @@ public class ProjectController {
 
             JSONObject projectsInfo = new JSONObject();
             projectsInfo.put("projects", objects);
+            return projectsInfo.toJSONString();
 
-            JSONObject returnInfo = new JSONObject();
-            returnInfo.put("Data", projectsInfo);
-            return returnInfo.toJSONString();
+//            JSONObject returnInfo = new JSONObject();
+//            returnInfo.put("Data", projectsInfo);
+//            return returnInfo.toJSONString();
         }else{
             JSONObject returnInfo = new JSONObject();
             returnInfo.put("message", "load projects fail !");
