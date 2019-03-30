@@ -96,6 +96,42 @@ public class FileController {
 //        return null;
 //    }
 
+    /**
+     * 保存文件
+     */
+
+
+    /**
+     * 加载文件
+     */
+    @GetMapping(value = "/{userid}/project/{projectName}/file/{fileName}")
+    public String loadFile(@PathVariable("userid") String userid,
+                           @PathVariable("projectName") String projectName,
+                           @PathVariable("fileName") String fileName){
+        // 查找文档对象
+        ArrayList<Project> list = (ArrayList<Project>)projectService.findProsByUserIdAndProName(userid, projectName);
+        // 如果该用户的该工程不存在，则报错并返回
+        if(list.size() == 0){
+            JSONObject returnInfo = new JSONObject();
+            returnInfo.put("message", "fail ! project don't exist!");
+            return returnInfo.toJSONString();
+        }
+
+        ProjectFiles file = projectService.findFileByUsername_projectname_filename(userid,projectName,fileName);
+        if(null == file){
+            JSONObject returnInfo = new JSONObject();
+            returnInfo.put("message", "fail ! file don't exist");
+            return returnInfo.toJSONString();
+        }
+
+        JSONObject fileInfo = new JSONObject();
+        fileInfo.put("fileType", file.getFileType());
+        fileInfo.put("resource", file.getResource());
+        fileInfo.put("relLanguage",file.getRelLanguage());
+        return fileInfo.toJSONString();
+
+    }
+
     @RequestMapping(path = "/xml2json", method = RequestMethod.GET)
     @ResponseBody
     public void xmlJson() {

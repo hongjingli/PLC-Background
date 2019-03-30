@@ -12,6 +12,8 @@ public interface ProjectDao {
 
     List<Project> findProsByUserIdAndProName(String userid, String projectName);
 
+    ProjectFiles findFileByUsername_proname_filename(String username, String projectName, String fileName);
+
     void insertProject(Project project);
 
     void deleteProject(Project delProject);

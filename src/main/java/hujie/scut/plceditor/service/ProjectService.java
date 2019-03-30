@@ -25,6 +25,10 @@ public class ProjectService {
         return projectDao.findProsByUserIdAndProName(userid, projectName);
     }
 
+    public ProjectFiles findFileByUsername_projectname_filename(String username, String projectName, String fileName){
+        return projectDao.findFileByUsername_proname_filename(username, projectName, fileName);
+    }
+
     public void insertProject(Project project){
         projectDao.insertProject(project);
     }

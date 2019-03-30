@@ -30,9 +30,20 @@ public class ProjectDaoImpl implements ProjectDao{
     }
 
     @Override
-    public List<Project> findProsByUserIdAndProName(String userid, String projectName) {
-        Query query = new Query(Criteria.where("userid").is(userid).and("name").is(projectName));
+    public List<Project> findProsByUserIdAndProName(String username, String projectName) {
+        Query query = new Query(Criteria.where("username").is(username).and("name").is(projectName));
         return mongoTemplate.find(query, Project.class);
+    }
+
+    @Override
+    public ProjectFiles findFileByUsername_proname_filename(String username, String projectName, String fileName){
+        List<ProjectFiles> fileList = getFilesByProjectName(username, projectName);
+        for (ProjectFiles file: fileList){
+            if (fileName.equals(file.getName())){
+                return file;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -54,8 +65,14 @@ public class ProjectDaoImpl implements ProjectDao{
     }
 
     @Override
-    public List<Project> findProsByUserId(String userid) {
-        Query query = new Query(Criteria.where("username").is(userid));
+    public List<Project> findProsByUserId(String username) {
+        Query query = new Query(Criteria.where("username").is(username));
         return mongoTemplate.find(query, Project.class);
+    }
+
+    public List<ProjectFiles> getFilesByProjectName(String username, String projectName){
+        Query query = new Query(Criteria.where("username").is(username).and("name").is(projectName));
+        return mongoTemplate.find(query, Project.class).get(0).getFiles();
+        //return null;
     }
 }
