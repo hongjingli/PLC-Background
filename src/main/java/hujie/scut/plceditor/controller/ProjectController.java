@@ -208,8 +208,23 @@ public class ProjectController {
     }
 
     /**
+     * 保存工程
+     */
+    @PutMapping(value = "/{userid}/project/{projectName}")
+    public String saveProject(@PathVariable("userid") String userid,
+                              @PathVariable("projectName") String projectName,
+                              @RequestBody Project jsonProjectParam){
+        projectService.saveProject(jsonProjectParam);
+        JSONObject result = new JSONObject();
+        result.put("message","OK");
+
+        return result.toJSONString();
+    }
+
+    /**
      * 工程重命名
      */
+
 
     /**
      * 关闭工程

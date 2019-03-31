@@ -52,6 +52,18 @@ public class ProjectDaoImpl implements ProjectDao{
     }
 
     @Override
+    public void saveProject(Project project){
+        Query query = new Query(Criteria.where("username").is(project.getUsername()).and("name").is(project.getName()));
+        Update update = new Update();
+        update.set("name", project.getName());
+        update.set("inUse", project.getInUse());
+        update.set("path", project.getPath());
+        update.set("files", project.getFiles());
+        update.set("configInfo", project.getConfigInfo());
+        mongoTemplate.updateFirst(query, update, Project.class);
+    }
+
+    @Override
     public void deleteProject(Project delProject) {
         Query query = new Query(Criteria.where("username").is(delProject.getUsername()).and("name").is(delProject.getName()));
         mongoTemplate.remove(query, Project.class);
@@ -68,6 +80,11 @@ public class ProjectDaoImpl implements ProjectDao{
                     System.out.println("delete fail!!");
             }
         }
+    }
+
+    @Override
+    public void saveProjectFiles(String userName, String projectName, String fileName){
+
     }
 
     @Override

@@ -33,12 +33,20 @@ public class ProjectService {
         projectDao.insertProject(project);
     }
 
+    public void saveProject(Project project){
+        projectDao.saveProject(project);
+    }
+
     public void deleteProject(Project delProject) {
         projectDao.deleteProject(delProject);
     }
 
     public void deleteProjectFiles(String userName, String projectName, String fileName){
         projectDao.deleteProjectFiles(userName, projectName, fileName);
+    }
+
+    public void saveProjectFiles(String userName, String projectName, String fileName){
+
     }
 
     public void updateProjectFiles(Project project, List<ProjectFiles> files) {

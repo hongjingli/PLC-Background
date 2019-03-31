@@ -16,9 +16,13 @@ public interface ProjectDao {
 
     void insertProject(Project project);
 
+    void saveProject(Project project);
+
     void deleteProject(Project delProject);
 
     void deleteProjectFiles(String userName, String projectName, String fileName);
+
+    void saveProjectFiles(String userName, String projectName, String fileName);
 
     void updateProjectFiles(Project project, List<ProjectFiles> files);
 
