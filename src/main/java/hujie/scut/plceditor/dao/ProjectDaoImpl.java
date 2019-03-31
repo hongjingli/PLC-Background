@@ -58,6 +58,19 @@ public class ProjectDaoImpl implements ProjectDao{
     }
 
     @Override
+    public void deleteProjectFiles(String userName, String projectName, String fileName){
+        List<ProjectFiles> files = getFilesByProjectName(userName, projectName);
+        for(ProjectFiles file: files){
+            if (fileName.equals(file.getName())){
+                if (files.remove(file))
+                    updateProjectFiles(findProsByUserIdAndProName(userName, projectName).get(0),files);
+                else
+                    System.out.println("delete fail!!");
+            }
+        }
+    }
+
+    @Override
     public void updateProjectFiles(Project project, List<ProjectFiles> files) {
         Query query = new Query(Criteria.where("username").is(project.getUsername()).and("name").is(project.getName()));
         Update update = Update.update("files", files);

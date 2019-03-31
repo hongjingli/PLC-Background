@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,6 +132,35 @@ public class FileController {
         return fileInfo.toJSONString();
 
     }
+
+    /**
+     * 删除文件
+     */
+    @DeleteMapping(value = "/{userid}/project/{projectName}/file/{fileName}")
+    public String deleteFile(@PathVariable("userid") String userid,
+                             @PathVariable("projectName") String projectName,
+                             @PathVariable("fileName") String fileName){
+        // 查找改文件
+        ProjectFiles files = projectService.findFileByUsername_projectname_filename(userid, projectName, fileName);
+
+        if (null != files){
+            projectService.deleteProjectFiles(userid, projectName, fileName);
+
+            // 文件路径
+            String filePath = ConstantUtils.PROPATH + userid + "/" + projectName + "/" + fileName;
+            File delFile = new File(filePath);
+            FileUtils.deleteFile(delFile);
+            JSONObject returnInfo = new JSONObject();
+            returnInfo.put("message", "the file '" + projectName + "/" + fileName + "' has been delete ! ");
+            return returnInfo.toJSONString();
+        }
+        else{
+            JSONObject returnInfo = new JSONObject();
+            returnInfo.put("message", "the file '" + projectName + "/" + fileName + "' fail ! ");
+            return returnInfo.toJSONString();
+        }
+    }
+
 
     @RequestMapping(path = "/xml2json", method = RequestMethod.GET)
     @ResponseBody

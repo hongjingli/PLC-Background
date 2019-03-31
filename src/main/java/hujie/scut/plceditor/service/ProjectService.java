@@ -37,6 +37,10 @@ public class ProjectService {
         projectDao.deleteProject(delProject);
     }
 
+    public void deleteProjectFiles(String userName, String projectName, String fileName){
+        projectDao.deleteProjectFiles(userName, projectName, fileName);
+    }
+
     public void updateProjectFiles(Project project, List<ProjectFiles> files) {
         projectDao.updateProjectFiles(project, files);
     }

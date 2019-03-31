@@ -18,6 +18,8 @@ public interface ProjectDao {
 
     void deleteProject(Project delProject);
 
+    void deleteProjectFiles(String userName, String projectName, String fileName);
+
     void updateProjectFiles(Project project, List<ProjectFiles> files);
 
     List<Project> findProsByUserId(String userid);
